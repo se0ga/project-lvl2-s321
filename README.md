@@ -3,4 +3,18 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/aa3681a6a4d0b14c6d50/test_coverage)](https://codeclimate.com/github/se0ga/project-lvl2-s321/test_coverage)
 [![Build Status](https://travis-ci.com/se0ga/project-lvl2-s321.svg?branch=master)](https://travis-ci.com/se0ga/project-lvl2-s321)
 
-# project-lvl2-s321
+# Project Generator Differences on node.js
+## Getting Started
+### Install
+```bash
+$ npm i -g se0ga_gendif
+```
+
+### Launch
+1. Help.
+```bash
+$ gendif -h
+```
+<details><summary>How it works</summary>
+https://asciinema.org/a/YNMVOpqJ37qZcI9koDwJ2c7Rd
+</details>
