@@ -1,6 +1,6 @@
 {
   "name": "se0ga_gendiff",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Second project on hexlet.com",
   "bin": {
     "gendiff": "dist/bin/gendiff.js"
@@ -12,7 +12,8 @@
     "babel-node": "babel-node",
     "build": "NODE_ENV=production babel src --out-dir dist --source-maps inline",
     "prepublishOnly": "npm run build",
-    "eslint": "eslint"
+    "eslint": "eslint",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -29,7 +30,8 @@
   },
   "homepage": "https://github.com/se0ga/project-lvl2-s321#readme",
   "dependencies": {
-    "commander": "^2.17.1"
+    "commander": "^2.17.1",
+    "lodash": "^4.17.10"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -40,6 +42,8 @@
     "eslint": "^5.2.0",
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-plugin-babel": "^5.1.0",
-    "eslint-plugin-import": "^2.13.0"
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jest": "^21.22.0",
+    "jest": "^23.5.0"
   }
 }

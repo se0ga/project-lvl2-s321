@@ -18,3 +18,11 @@ $ gendif -h
 <details><summary>How it works</summary>
 https://asciinema.org/a/YNMVOpqJ37qZcI9koDwJ2c7Rd
 </details>
+
+2. compare JSON.
+```bash
+$ gendif <firstConfig> <secondConfig>
+```
+<details><summary>How it works</summary>
+https://asciinema.org/a/5utAh7uGHpUy6r7Fw99vzL1Lc
+</details>
