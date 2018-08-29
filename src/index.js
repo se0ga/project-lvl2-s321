@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import _ from 'lodash';
 import yaml from 'js-yaml';
+import ini from 'ini';
 
 const compare = (obj1, obj2) => {
   const keys = _.union(Object.keys(obj1), Object.keys(obj2));
@@ -23,6 +24,7 @@ const compare = (obj1, obj2) => {
 const parse = {
   '.json': data => JSON.parse(data),
   '.yml': data => yaml.safeLoad(data),
+  '.ini': data => ini.parse(data),
 };
 
 export default (file1, file2) => {

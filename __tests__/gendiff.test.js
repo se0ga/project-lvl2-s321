@@ -15,3 +15,7 @@ test('gendiff before.json after.json', () => {
 test('gendiff before.yml after.yml', () => {
   checkGendiffResult('before.yml', 'after.yml', 'result.yml.txt');
 });
+
+test('gendiff before.ini after.ini', () => {
+  checkGendiffResult('before.ini', 'after.ini', 'result.ini.txt');
+});

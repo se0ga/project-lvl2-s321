@@ -34,3 +34,11 @@ $ gendif <firstConfig> <secondConfig>
 <details><summary>How it works</summary>
 https://asciinema.org/a/dK7KR0UktrcuefUrnPVXvrf9U
 </details>
+
+4. compare ini.
+```bash
+$ gendif <firstConfig> <secondConfig>
+```
+<details><summary>How it works</summary>
+https://asciinema.org/a/o4YItCOwEhIeiMqyqERmB5C7w
+</details>
