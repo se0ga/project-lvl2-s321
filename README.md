@@ -26,3 +26,11 @@ $ gendif <firstConfig> <secondConfig>
 <details><summary>How it works</summary>
 https://asciinema.org/a/5utAh7uGHpUy6r7Fw99vzL1Lc
 </details>
+
+3. compare yml.
+```bash
+$ gendif <firstConfig> <secondConfig>
+```
+<details><summary>How it works</summary>
+https://asciinema.org/a/dK7KR0UktrcuefUrnPVXvrf9U
+</details>

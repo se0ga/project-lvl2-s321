@@ -1,5 +1,7 @@
 import fs from 'fs';
+import path from 'path';
 import _ from 'lodash';
+import yaml from 'js-yaml';
 
 const compare = (obj1, obj2) => {
   const keys = _.union(Object.keys(obj1), Object.keys(obj2));
@@ -18,10 +20,15 @@ const compare = (obj1, obj2) => {
   return `{\n${comparedKeys}}`;
 };
 
+const parse = {
+  '.json': data => JSON.parse(data),
+  '.yml': data => yaml.safeLoad(data),
+};
+
 export default (file1, file2) => {
   const plainData1 = fs.readFileSync(file1, 'UTF-8');
   const plainData2 = fs.readFileSync(file2, 'UTF-8');
-  const obj1 = JSON.parse(plainData1);
-  const obj2 = JSON.parse(plainData2);
+  const obj1 = parse[path.extname(file1)](plainData1);
+  const obj2 = parse[path.extname(file2)](plainData2);
   return compare(obj1, obj2);
 };
