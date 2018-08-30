@@ -19,7 +19,7 @@ $ gendif -h
 https://asciinema.org/a/YNMVOpqJ37qZcI9koDwJ2c7Rd
 </details>
 
-2. compare JSON.
+2. compare json.
 ```bash
 $ gendif <firstConfig> <secondConfig>
 ```
@@ -41,4 +41,12 @@ $ gendif <firstConfig> <secondConfig>
 ```
 <details><summary>How it works</summary>
 https://asciinema.org/a/o4YItCOwEhIeiMqyqERmB5C7w
+</details>
+
+5. compare nested json, yml, ini.
+```bash
+$ gendif <firstConfig> <secondConfig>
+```
+<details><summary>How it works</summary>
+https://asciinema.org/a/WElKGCJ7Em3u5AaZ0ta9V6tOL
 </details>
