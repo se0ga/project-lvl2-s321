@@ -1,6 +1,6 @@
 {
   "name": "se0ga_gendiff",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Second project on hexlet.com",
   "bin": {
     "gendiff": "dist/bin/gendiff.js"

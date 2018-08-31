@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import parse from './parse';
 import createAST from './ast';
-import render from './renderer';
+import render from './renderers';
 
 export default (file1, file2, format = 'default') => {
   const plainData1 = fs.readFileSync(file1, 'UTF-8');
