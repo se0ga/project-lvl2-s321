@@ -9,15 +9,15 @@ const checkGendiffResult = (file1, file2, resultFile) => {
   expect(gendiff(getTestFilePath(file1), getTestFilePath(file2))).toBe(resultData);
 };
 test('gendiff before.json after.json', () => {
-  checkGendiffResult('plain1.json', 'plain2.json', 'resultPlain.json.txt');
+  checkGendiffResult('basic1.json', 'basic2.json', 'resultBasic.json.txt');
 });
 
 test('gendiff before.yml after.yml', () => {
-  checkGendiffResult('plain1.yml', 'plain2.yml', 'resultPlain.yml.txt');
+  checkGendiffResult('basic1.yml', 'basic2.yml', 'resultBasic.yml.txt');
 });
 
 test('gendiff before.ini after.ini', () => {
-  checkGendiffResult('plain1.ini', 'plain2.ini', 'resultPlain.ini.txt');
+  checkGendiffResult('basic1.ini', 'basic2.ini', 'resultBasic.ini.txt');
 });
 
 test('gendiff nested1.json nested2.json', () => {
