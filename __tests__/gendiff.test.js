@@ -22,3 +22,6 @@ test('check gendiff with json, yml, ini', () => {
 test('check gendiff with json, yml, ini with --format plain', () => {
   files.forEach(([file1, file2, resultFile]) => checkGendiffResult(file1, file2, `plain${resultFile}`, 'plain'));
 });
+test('check gendiff with json, yml, ini with --format json', () => {
+  files.forEach(([file1, file2, resultFile]) => checkGendiffResult(file1, file2, `json${resultFile}`, 'json'));
+});

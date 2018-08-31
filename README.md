@@ -53,8 +53,16 @@ https://asciinema.org/a/WElKGCJ7Em3u5AaZ0ta9V6tOL
 
 6. compare nested json, yml, ini with --format plain.
 ```bash
-$ gendif <firstConfig> <secondConfig>
+$ gendif <firstConfig> <secondConfig> --format plain
 ```
 <details><summary>How it works</summary>
 https://asciinema.org/a/PCEUBFQ5xCkjBaJEjzczLRFKi
+</details>
+
+6. compare nested json, yml, ini with --format json.
+```bash
+$ gendif <firstConfig> <secondConfig> --format json
+```
+<details><summary>How it works</summary>
+https://asciinema.org/a/68rBGxzggoruk2psunMMWk4MG
 </details>
