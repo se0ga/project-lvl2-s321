@@ -1,4 +1,4 @@
-import _ from "lodash";
+import _ from 'lodash';
 
 const stringify = (value, continuationIndent = 0, indent = 4) => {
   if (!_.isObject(value)) {

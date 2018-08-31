@@ -1,4 +1,4 @@
-import _ from "lodash";
+import _ from 'lodash';
 
 const getFormattedValue = (value) => {
   // I should check is it number or not because of this bug https://github.com/npm/ini/pull/76

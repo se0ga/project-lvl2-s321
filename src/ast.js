@@ -12,21 +12,21 @@ const createAST = (obj1, obj2) => {
           children: createAST(oldValue, newValue),
           type: 'structure',
         }];
-      } else if (oldValue === newValue) {
+      }
+      if (oldValue === newValue) {
         return [...acc, {
           key,
           oldValue,
           newValue,
           type: 'unchanged',
         }];
-      } else {
-        return [...acc, {
-          key,
-          oldValue,
-          newValue,
-          type: 'changed',
-        }];
       }
+      return [...acc, {
+        key,
+        oldValue,
+        newValue,
+        type: 'changed',
+      }];
     }
     if (_.has(obj1, key)) {
       return [...acc, {
@@ -34,13 +34,12 @@ const createAST = (obj1, obj2) => {
         oldValue: obj1[key],
         type: 'deleted',
       }];
-    } else {
-      return [...acc, {
-        key,
-        newValue: obj2[key],
-        type: 'added',
-      }];
     }
+    return [...acc, {
+      key,
+      newValue: obj2[key],
+      type: 'added',
+    }];
   }, []);
 };
 export default createAST;
