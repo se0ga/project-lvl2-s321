@@ -28,18 +28,10 @@ const createAST = (obj1, obj2) => {
         type: 'changed',
       }];
     }
-    if (_.has(obj1, key)) {
-      return [...acc, {
-        key,
-        oldValue: obj1[key],
-        type: 'deleted',
-      }];
-    }
-    return [...acc, {
-      key,
-      newValue: obj2[key],
-      type: 'added',
-    }];
+    const result = _.has(obj1, key)
+      ? { key, oldValue: obj1[key], type: 'deleted' }
+      : { key, newValue: obj2[key], type: 'added' };
+    return [...acc, result];
   }, []);
 };
 export default createAST;
