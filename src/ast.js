@@ -3,26 +3,41 @@ import _ from 'lodash';
 const createAST = (obj1, obj2) => {
   const keys = _.union(Object.keys(obj1), Object.keys(obj2));
   return keys.reduce((acc, key) => {
-    const elem = { key };
-    if (_.has(obj1, key) && _.has(obj2, key)) {
-      const oldValue = obj1[key];
-      const newValue = obj2[key];
-      if (_.isObject(oldValue) && _.isObject(newValue)) {
-        elem.children = createAST(oldValue, newValue);
-        elem.type = 'structure';
-      } else {
-        elem.oldValue = oldValue;
-        elem.newValue = newValue;
-        elem.type = oldValue === newValue ? 'unchanged' : 'changed';
-      }
-    } else if (_.has(obj1, key)) {
-      elem.oldValue = obj1[key];
-      elem.type = 'deleted';
-    } else {
-      elem.newValue = obj2[key];
-      elem.type = 'added';
+    if (_.isObject(obj1[key]) && _.isObject(obj2[key])) {
+      return [...acc, {
+        key,
+        children: createAST(obj1[key], obj2[key]),
+        type: 'structure',
+      }];
     }
-    return [...acc, elem];
+    if (!_.has(obj2, key)) {
+      return [...acc, {
+        key,
+        oldValue: obj1[key],
+        type: 'deleted',
+      }];
+    }
+    if (!_.has(obj1, key)) {
+      return [...acc, {
+        key,
+        newValue: obj2[key],
+        type: 'added',
+      }];
+    }
+    if (obj1[key] === obj2[key]) {
+      return [...acc, {
+        key,
+        oldValue: obj1[key],
+        newValue: obj2[key],
+        type: 'unchanged',
+      }];
+    }
+    return [...acc, {
+      key,
+      oldValue: obj1[key],
+      newValue: obj2[key],
+      type: 'changed',
+    }];
   }, []);
 };
 export default createAST;

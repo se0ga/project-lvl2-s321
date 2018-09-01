@@ -21,16 +21,18 @@ export default (ast) => {
     const newValue = getFormattedValue(elem.newValue);
     switch (elem.type) {
       case 'structure':
-        return `${acc}${iter(elem.children, key)}`;
+        return [...acc, iter(elem.children, key)];
       case 'changed':
-        return `${acc}Property '${key}' was updated. From ${oldValue} to ${newValue}\n`;
+        return [...acc, `Property '${key}' was updated. From ${oldValue} to ${newValue}`];
       case 'deleted':
-        return `${acc}Property '${key}' was removed\n`;
+        return [...acc, `Property '${key}' was removed`];
       case 'added':
-        return `${acc}Property '${key}' was added with value: ${newValue}\n`;
-      default:
+        return [...acc, `Property '${key}' was added with value: ${newValue}`];
+      case 'unchanged':
         return acc;
+      default:
+        throw new TypeError(`Unknown type: ${elem.type}`);
     }
-  }, '');
-  return iter(ast, '');
+  }, []);
+  return _.flatten(iter(ast, '')).join('\n');
 };
