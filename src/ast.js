@@ -9,22 +9,19 @@ const createAST = (obj1, obj2) => {
         children: createAST(obj1[key], obj2[key]),
         type: 'structure',
       }];
-    }
-    if (!_.has(obj2, key)) {
+    } else if (!_.has(obj2, key)) {
       return [...acc, {
         key,
         oldValue: obj1[key],
         type: 'deleted',
       }];
-    }
-    if (!_.has(obj1, key)) {
+    } else if (!_.has(obj1, key)) {
       return [...acc, {
         key,
         newValue: obj2[key],
         type: 'added',
       }];
-    }
-    if (obj1[key] === obj2[key]) {
+    } else if (obj1[key] === obj2[key]) {
       return [...acc, {
         key,
         oldValue: obj1[key],
