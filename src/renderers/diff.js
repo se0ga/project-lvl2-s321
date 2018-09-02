@@ -12,7 +12,7 @@ const stringify = (value, depth) => {
 
 const render = (ast) => {
   const iter = (list, depth) => {
-    const newList = list.reduce((acc, elem) => {
+    const newList = list.map((elem) => {
       const { key } = elem;
       const oldValue = stringify(elem.oldValue, depth);
       const newValue = stringify(elem.newValue, depth);
@@ -21,23 +21,24 @@ const render = (ast) => {
       const getFormattedChangedValue = (value, sign) => `${indentWithChanges}${sign} ${key}: ${value}`;
       switch (elem.type) {
         case 'structure':
-          return [...acc, `${fullIndent}${key}: {`, iter(elem.children, depth + 1), `${fullIndent}}`];
+          const valueWithChildren = [`${fullIndent}${key}: {`, iter(elem.children, depth + 1), `${fullIndent}}`];
+          return _.flatten(valueWithChildren);
         case 'changed':
-          return [...acc, getFormattedChangedValue(oldValue, '-'), getFormattedChangedValue(newValue, '+')];
+          return [getFormattedChangedValue(oldValue, '-'), getFormattedChangedValue(newValue, '+')];
         case 'deleted':
-          return [...acc, getFormattedChangedValue(oldValue, '-')];
+          return getFormattedChangedValue(oldValue, '-');
         case 'added':
-          return [...acc, getFormattedChangedValue(newValue, '+')];
+          return getFormattedChangedValue(newValue, '+');
         case 'unchanged':
-          return [...acc, `${fullIndent}${key}: ${oldValue}`];
+          return `${fullIndent}${key}: ${oldValue}`;
         default:
           throw new TypeError(`Unknown type: ${elem.type}`);
       }
-    }, []);
+    });
     return _.flatten(newList);
   };
-  const innerStructure = iter(ast, 1);
-  return `{\n${innerStructure.join('\n')}\n}`;
+  const innerStructure = iter(ast, 1).join('\n');
+  return `{\n${innerStructure}\n}`;
 };
 
 export default render;
