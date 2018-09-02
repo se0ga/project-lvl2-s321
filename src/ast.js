@@ -1,40 +1,48 @@
 import _ from 'lodash';
 
-const createAST = (obj1, obj2) => {
-  const keys = _.union(Object.keys(obj1), Object.keys(obj2));
+const types = [
+  {
+    type: 'structure',
+    signature: (key, firstConfig, secondConfig) => (_.has(firstConfig, key)
+      && _.has(secondConfig, key) && _.isObject(firstConfig[key]) && _.isObject(secondConfig[key])),
+    getNode: (key, firstConfig, secondConfig, fn) => ({
+      key, children: fn(firstConfig[key], secondConfig[key]),
+    }),
+  },
+  {
+    type: 'added',
+    signature: (key, firstConfig, secondConfig) => (!_.has(firstConfig, key)
+      && _.has(secondConfig, key)),
+    getNode: (key, firstConfig, secondConfig) => ({ key, newValue: secondConfig[key] }),
+  },
+  {
+    type: 'deleted',
+    signature: (key, firstConfig, secondConfig) => (_.has(firstConfig, key)
+      && !_.has(secondConfig, key)),
+    getNode: (key, firstConfig) => ({ key, oldValue: firstConfig[key] }),
+  },
+  {
+    type: 'unchanged',
+    signature: (key, firstConfig, secondConfig) => (_.has(firstConfig, key)
+      && _.has(secondConfig, key) && firstConfig[key] === secondConfig[key]),
+    getNode: (key, firstConfig, secondConfig) => ({
+      key, oldValue: firstConfig[key], newValue: secondConfig[key],
+    }),
+  },
+  {
+    type: 'changed',
+    signature: (key, firstConfig, secondConfig) => (_.has(firstConfig, key)
+      && _.has(secondConfig, key) && firstConfig[key] !== secondConfig[key]),
+    getNode: (key, firstConfig, secondConfig) => ({
+      key, oldValue: firstConfig[key], newValue: secondConfig[key],
+    }),
+  },
+];
+const createAST = (firstConfig, secondConfig) => {
+  const keys = _.union(Object.keys(firstConfig), Object.keys(secondConfig));
   return keys.map((key) => {
-    if (_.isObject(obj1[key]) && _.isObject(obj2[key])) {
-      return {
-        key,
-        children: createAST(obj1[key], obj2[key]),
-        type: 'structure',
-      };
-    } else if (!_.has(obj2, key)) {
-      return {
-        key,
-        oldValue: obj1[key],
-        type: 'deleted',
-      };
-    } else if (!_.has(obj1, key)) {
-      return {
-        key,
-        newValue: obj2[key],
-        type: 'added',
-      };
-    } else if (obj1[key] === obj2[key]) {
-      return {
-        key,
-        oldValue: obj1[key],
-        newValue: obj2[key],
-        type: 'unchanged',
-      };
-    }
-    return {
-      key,
-      oldValue: obj1[key],
-      newValue: obj2[key],
-      type: 'changed',
-    };
+    const { type, getNode } = _.find(types, item => item.signature(key, firstConfig, secondConfig));
+    return { ...getNode(key, firstConfig, secondConfig, createAST), type };
   });
 };
 export default createAST;
