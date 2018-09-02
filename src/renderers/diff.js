@@ -19,10 +19,13 @@ const render = (ast) => {
       const fullIndent = ' '.repeat(indent * depth);
       const indentWithChanges = ' '.repeat(indent * depth - 2);
       const getFormattedChangedValue = (value, sign) => `${indentWithChanges}${sign} ${key}: ${value}`;
+      const getFormattedValueWithChildren = (children) => {
+        const valueWithChildren = [`${fullIndent}${key}: {`, iter(children, depth + 1), `${fullIndent}}`];
+        return _.flatten(valueWithChildren);
+      };
       switch (elem.type) {
         case 'structure':
-          const valueWithChildren = [`${fullIndent}${key}: {`, iter(elem.children, depth + 1), `${fullIndent}}`];
-          return _.flatten(valueWithChildren);
+          return getFormattedValueWithChildren(elem.children);
         case 'changed':
           return [getFormattedChangedValue(oldValue, '-'), getFormattedChangedValue(newValue, '+')];
         case 'deleted':
