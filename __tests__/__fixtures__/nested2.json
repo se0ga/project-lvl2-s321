@@ -11,7 +11,13 @@
     },
     "setting6": {
       "key": "value",
-      "ops": "vops"
+      "ops": "vops",
+      "setting6": {
+        "key": "value",
+        "setting6": {
+          "key": "valu1"
+        }
+      }
     }
   },
 

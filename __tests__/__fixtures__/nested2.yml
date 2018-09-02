@@ -9,6 +9,10 @@ common:
   setting6:
     key: value
     ops: vops
+    setting6:
+      key: value
+      setting6:
+        key: valu1
 group1:
   foo: bar
   baz: bars

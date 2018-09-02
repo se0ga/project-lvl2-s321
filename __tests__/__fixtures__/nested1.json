@@ -4,7 +4,13 @@
     "setting2": "200",
     "setting3": true,
     "setting6": {
-      "key": "value"
+      "key": "value",
+      "setting6": {
+        "key": "value",
+        "setting6": {
+          "key": "value"
+        }
+      }
     }
   },
   "group1": {

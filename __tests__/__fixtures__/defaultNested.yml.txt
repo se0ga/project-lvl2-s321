@@ -8,6 +8,13 @@
         }
         setting6: {
             key: value
+            setting6: {
+                key: value
+                setting6: {
+                  - key: value
+                  + key: valu1
+                }
+            }
           + ops: vops
         }
       + follow: false

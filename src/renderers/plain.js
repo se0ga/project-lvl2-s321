@@ -15,24 +15,26 @@ const getFormattedValue = (value) => {
 };
 
 export default (ast) => {
-  const iter = (list, parent) => list.reduce((acc, elem) => {
-    const key = parent ? `${parent}.${elem.key}` : elem.key;
-    const oldValue = getFormattedValue(elem.oldValue);
-    const newValue = getFormattedValue(elem.newValue);
-    switch (elem.type) {
-      case 'structure':
-        return [...acc, iter(elem.children, key)];
-      case 'changed':
-        return [...acc, `Property '${key}' was updated. From ${oldValue} to ${newValue}`];
-      case 'deleted':
-        return [...acc, `Property '${key}' was removed`];
-      case 'added':
-        return [...acc, `Property '${key}' was added with value: ${newValue}`];
-      case 'unchanged':
-        return acc;
-      default:
-        throw new TypeError(`Unknown type: ${elem.type}`);
-    }
-  }, []);
-  return _.flatten(iter(ast, '')).join('\n');
+  const iter = (list, parent) => {
+    const result = list.filter(elem => elem.type !== 'unchanged')
+      .map((elem) => {
+        const key = parent ? `${parent}.${elem.key}` : elem.key;
+        const oldValue = getFormattedValue(elem.oldValue);
+        const newValue = getFormattedValue(elem.newValue);
+        switch (elem.type) {
+          case 'structure':
+            return iter(elem.children, key);
+          case 'changed':
+            return `Property '${key}' was updated. From ${oldValue} to ${newValue}`;
+          case 'deleted':
+            return `Property '${key}' was removed`;
+          case 'added':
+            return `Property '${key}' was added with value: ${newValue}`;
+          default:
+            throw new TypeError(`Unknown type: ${elem.type}`);
+        }
+      });
+    return _.flatten(result);
+  };
+  return iter(ast, '').join('\n');
 };
